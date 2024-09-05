@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('people_users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('person_id')->references('id')->on('people');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('people_users')) {
+            Schema::create('people_users', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('person_id');
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('person_id')->references('id')->on('people');
+                $table->foreign('user_id')->references('id')->on('users');
+                $table->timestamps();
+            });
     }
-
+}
     /**
      * Reverse the migrations.
      *

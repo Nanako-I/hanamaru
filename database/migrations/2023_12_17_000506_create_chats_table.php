@@ -49,7 +49,8 @@ return new class extends Migration
             $table->string('message');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
-            $table->boolean('is_read')->default(false); // 未読の場合は false, 既読は true
+            // $table->boolean('is_read')->default(false); // 未読の場合は false, 既読は true 
+            // マージ時にすでにchatsテーブルが作成されており、変更が反映されないため、1行上↑をコメントアウト（新しくadd_is_read_to_chats_tableというマイグレーションファイル作成）
         });
 
         // Schema::create('chats', function (Blueprint $table) {

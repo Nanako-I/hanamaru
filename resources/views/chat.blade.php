@@ -264,6 +264,9 @@
                 </form>
             </div>
 
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+            <script src="https://kit.fontawesome.com/de653d534a.js" crossorigin="anonymous"></script>
+            
             <div id="chatbot-body">
                 <ul id="chatbot-ul">
                     @foreach ($chats as $chat)
