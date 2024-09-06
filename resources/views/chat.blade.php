@@ -263,10 +263,8 @@
                     </div>
                 </form>
             </div>
-
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
             <script src="https://kit.fontawesome.com/de653d534a.js" crossorigin="anonymous"></script>
-            
             <div id="chatbot-body">
                 <ul id="chatbot-ul">
                     @foreach ($chats as $chat)
@@ -308,7 +306,7 @@
             function uploadFile1() {
                 var filename = document.getElementById('filename').value;
                 if (filename.trim() !== '') {
-                    document.getElementById('chatbot-text').value = '写真が送信されました';
+                    document.getElementById('chatbot-text').value = '写真が選択されました';
                 }
             }
 
@@ -346,13 +344,27 @@
 
                     var formData = new FormData(this);
 
+                    // fetch(this.action, {
+                    //     method: 'POST',
+                    //     body: formData
+                    // }).then(response => {
+                    //     console.log('Response:', response);
+                    //     return response.json();
+                    // })
+                    const isFileSelected = document.getElementById('filename').files.length > 0;
+            
+                    // 写真が送信されましたとする
+                    if (isFileSelected) {
+                        formData.append('message', '写真が送信されました');
+                    }
+
                     fetch(this.action, {
                         method: 'POST',
                         body: formData
                     }).then(response => {
-                        console.log('Response:', response);
                         return response.json();
                     })
+
                     .then(data => {
                         console.log('Data:', data);
                         window.displayMessage(data.message, data.user_identifier, data.user_name,data.created_at,data.filename);

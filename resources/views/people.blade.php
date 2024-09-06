@@ -143,7 +143,12 @@
                                             
                                             <!-- 登録していない場合 -->
                                             <a href="{{ url('chat/'.$person->id) }}" class="relative ml-2" style="display: flex; align-items: center;">
-                                            <summary class="text-red-500 font-bold text-xl">連絡する</summary>
+                                            <!-- 未読メッセージがある場合に new マークを表示 -->
+                                            @if($person->unreadMessages)
+                                            <span class="ml-2 text-red-500 font-bold text-lg pr-1">New</span>
+                                            @endif
+
+                                            <p class="font-bold text-xl">連絡する</p>
                                             @csrf
                                             <i class="fa-solid fa-plus text-gray-900" style="font-size: 1.5em; padding: 0 5px; transition: transform 0.2s;"></i>
                                             </a>

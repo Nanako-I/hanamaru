@@ -53,7 +53,7 @@ use App\Http\Controllers\ChildFoodController;
 use App\Http\Controllers\ChildToiletController;
 use App\Http\Controllers\BathController;
 use App\Http\Controllers\HogoshaRecordController;
-
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DompdfController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\AmiVoiceController;
@@ -164,7 +164,7 @@ Route::get('/before-invitation', [BeforeInvitationController::class, 'registrati
 // 家族招待前に利用者登録があるか確認↓
 Route::get('/registration-confirmation', function () {
     // return response()->view('registration-confirmation');
-    return view('egistration-confirmation');
+    return view('registration-confirmation');
 })->name('registration-confirmation');
 
 
@@ -235,12 +235,16 @@ Route::middleware('auth')->group(function () {
 Route::get('/hogosharegister',[HogoshaUserController::class,'showRegister']);
 Route::post('/hogosharegister',[HogoshaUserController::class,'register']);
 
-Route::middleware('auth')->group(function (){
-    Route::get('/hogosha',[HogoshaUserController::class,'hogosha'])->name('hogosha');
-});
+// Route::middleware('auth')->group(function (){
+//     Route::get('/hogosha',[HogoshaUserController::class,'hogosha'])->name('hogosha');
+// });
 
-Route::get('/hogoshanumber', [HogoshaUserController::class, 'create'])->name('hogoshanumber.show');
-Route::post('/hogoshanumber', [HogoshaUserController::class, 'numberregister'])->name('hogoshanumber.store');
+Route::get('/hogosha', [HogoshaUserController::class, 'hogosha'])->name('hogosha');
+
+
+Route::get('hogoshanumber', [HogoshaUserController::class, 'create'])->name('hogoshanumber.show');
+Route::post('hogoshanumber', [HogoshaUserController::class, 'numberregister'])->name('hogoshanumber.store');
+
 
 // 職員の登録画面↓
 Route::get('/staffregister',[StaffUserController::class,'staffshow'])->name('staffregister');
@@ -359,17 +363,10 @@ Route::get('notificationchange/{people_id}', [NotificationController::class, 'ch
 Route::post('notificationchange/{people_id}',[NotificationController::class,'update'])->name('notification_update');
 
 
-// ★保護者の連絡
-// Route::get('hogosha/{people_id}/edit', [HogoshaController::class, 'edit'])->name('hogosha.edit');
-// Route::post('hogosha/{people_id}/edit', [HogoshaController::class,'store'])->name('hogosha.post');
-
-// // 編集↓
-// Route::get('hogoshachange/{people_id}', [HogoshaController::class, 'change'])->name('hogosha.change');
-// Route::post('hogoshachange/{people_id}',[HogoshaController::class,'update'])->name('hogosha');
 
 // 子どもの体調について　親からの報告↓
-
-Route::get('hogosha', [ChildConditionController::class, 'edit'])->name('condition.edit');
+Route::get('hogosha', [HogoshaUserController::class, 'edit'])->name('condition.edit');
+// Route::get('hogosha', [ChildConditionController::class, 'edit'])->name('condition.edit');
 // Route::get('hogosha/{people_id}', [ChildConditionController::class, 'edit'])->name('condition.edit');
 // Route::get('hogosha/{people_id}/edit', [ChildConditionController::class, 'edit'])->name('condition.edit');
 Route::post('condition/{people_id}/edit', [ChildConditionController::class,'store'])->name('condition.post');
